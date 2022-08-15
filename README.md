@@ -1,15 +1,15 @@
 
-# react-native-mumeng
+# react-native-mob
 
-[![npm version](https://badge.fury.io/js/react-native-mumeng.svg)](https://badge.fury.io/js/react-native-mumeng)
+[![npm version](https://badge.fury.io/js/react-native-mob.svg)](https://badge.fury.io/js/react-native-mob)
 
 ## 开始
 
-`$ npm install react-native-mumeng --save`
+`$ npm install react-native-mob --save`
 
 ### 自动配置
 
-`$ react-native link react-native-mumeng`
+`$ react-native link react-native-mob`
 
 ### 手动配置
 
@@ -32,6 +32,7 @@ allprojects {
 ## 集成
 
 以下初始化，可以不在app初始化的时候集成。在应用启动的时候自己选择初始化，用于隐私合规
+![](https://help-static-aliyun-doc.aliyuncs.com/assets/img/zh-CN/7678468261/p303155.jpg)
 
 ### iOS
 

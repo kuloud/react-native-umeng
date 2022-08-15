@@ -42,7 +42,6 @@ public class RNReactNativeMumengModule extends ReactContextBaseJavaModule implem
         }
         if (!appkey.equals("")) {
             UMConfigure.init(reactContext, appkey, channel, UMConfigure.DEVICE_TYPE_PHONE, null);
-            MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.LEGACY_AUTO);
             UMConfigure.setLogEnabled(isDebug);
             WritableMap map = Arguments.createMap();
             map.putString("message", "success");
@@ -67,7 +66,7 @@ public class RNReactNativeMumengModule extends ReactContextBaseJavaModule implem
 
     /********************************U-App统计*********************************/
     @ReactMethod
-    public void onPageBegin(String mPageName) {
+    public void onPageStart(String mPageName) {
         MobclickAgent.onPageStart(mPageName);
     }
 
@@ -88,44 +87,45 @@ public class RNReactNativeMumengModule extends ReactContextBaseJavaModule implem
 
     @ReactMethod
     public void onEventWithMap(String eventId, ReadableMap map) {
-        Map<String, String> rMap = new HashMap<String, String>();
-        ReadableMapKeySetIterator iterator = map.keySetIterator();
-        while (iterator.hasNextKey()) {
-            String key = iterator.nextKey();
-            if (ReadableType.Array == map.getType(key)) {
-                rMap.put(key, map.getArray(key).toString());
-            } else if (ReadableType.Boolean == map.getType(key)) {
-                rMap.put(key, String.valueOf(map.getBoolean(key)));
-            } else if (ReadableType.Number == map.getType(key)) {
-                rMap.put(key, String.valueOf(map.getInt(key)));
-            } else if (ReadableType.String == map.getType(key)) {
-                rMap.put(key, map.getString(key));
-            } else if (ReadableType.Map == map.getType(key)) {
-                rMap.put(key, map.getMap(key).toString());
-            }
-        }
+        Map<String, String> rMap = rebuildMap(map);
         MobclickAgent.onEvent(reactContext, eventId, rMap);
     }
 
     @ReactMethod
     public void onEventWithMapAndCount(String eventId, ReadableMap map, int value) {
+        Map<String, String> rMap = rebuildMap(map);
+        MobclickAgent.onEventValue(reactContext, eventId, rMap, value);
+    }
+
+    private Map<String, String> rebuildMap(ReadableMap map) {
         Map<String, String> rMap = new HashMap();
-        ReadableMapKeySetIterator iterator = map.keySetIterator();
-        while (iterator.hasNextKey()) {
-            String key = iterator.nextKey();
-            if (ReadableType.Array == map.getType(key)) {
-                rMap.put(key, map.getArray(key).toString());
-            } else if (ReadableType.Boolean == map.getType(key)) {
-                rMap.put(key, String.valueOf(map.getBoolean(key)));
-            } else if (ReadableType.Number == map.getType(key)) {
-                rMap.put(key, String.valueOf(map.getInt(key)));
-            } else if (ReadableType.String == map.getType(key)) {
-                rMap.put(key, map.getString(key));
-            } else if (ReadableType.Map == map.getType(key)) {
-                rMap.put(key, map.getMap(key).toString());
+        if (map != null) {
+            ReadableMapKeySetIterator iterator = map.keySetIterator();
+            while (iterator.hasNextKey()) {
+                String key = iterator.nextKey();
+                if (ReadableType.Array == map.getType(key)) {
+                    rMap.put(key, map.getArray(key).toString());
+                } else if (ReadableType.Boolean == map.getType(key)) {
+                    rMap.put(key, String.valueOf(map.getBoolean(key)));
+                } else if (ReadableType.Number == map.getType(key)) {
+                    rMap.put(key, String.valueOf(map.getInt(key)));
+                } else if (ReadableType.String == map.getType(key)) {
+                    rMap.put(key, map.getString(key));
+                } else if (ReadableType.Map == map.getType(key)) {
+                    rMap.put(key, map.getMap(key).toString());
+                }
             }
         }
-        MobclickAgent.onEventValue(reactContext, eventId, rMap, value);
+        return rMap;
+    }
+
+    @ReactMethod
+    public void setPageCollectionMode(String modeName) {
+        if ("LEGACY_MANUAL".equals(modeName)) {
+            MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.LEGACY_MANUAL);
+        } else {
+            MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.LEGACY_AUTO);
+        }
     }
 
     /********************************U-App统计*********************************/
@@ -146,7 +146,6 @@ public class RNReactNativeMumengModule extends ReactContextBaseJavaModule implem
 
     public static void init(Context context, String appkey, String channel, String secret) {
         UMConfigure.init(context, appkey, channel, UMConfigure.DEVICE_TYPE_PHONE, secret);
-        MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.LEGACY_AUTO);
     }
 
     public static void preInit(Context context, String appkey, String channel) {

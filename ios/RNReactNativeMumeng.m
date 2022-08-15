@@ -89,7 +89,7 @@ RCT_EXPORT_METHOD(onEventWithMapAndCount:(NSString *)eventId parameters:(NSDicti
   [MobClick event:eventId attributes:parameters counter:eventNum];
 }
 
-RCT_EXPORT_METHOD(onPageBegin:(NSString *)pageName)
+RCT_EXPORT_METHOD(onPageStart:(NSString *)pageName)
 {
   if (pageName == nil || [pageName isKindOfClass:[NSNull class]]) {
     return;
@@ -103,6 +103,14 @@ RCT_EXPORT_METHOD(onPageEnd:(NSString *)pageName)
     return;
   }
   [MobClick endLogPageView:pageName];
+}
+
+RCT_EXPORT_METHOD(setPageCollectionMode:(NSString *)modeName)
+{
+  if (modeName == nil || [modeName isKindOfClass:[NSNull class]]) {
+    return;
+  }
+  [MobClick setPageCollectionMode:modeName];
 }
 
 @end

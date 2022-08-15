@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.license       = package['license']
   s.author        = package['author']
   s.platform      = :ios, "9.0"
-  s.source        = { :git => "https://github.com/bashen1/react-native-mumeng.git", :tag => "master" }
+  s.source        = { :git => "https://github.com/kuloud/react-native-umeng.git", :tag => "main" }
   s.source_files  = "ios/RNReactNativeMumeng.{h,m}"
   s.requires_arc  = true
 
@@ -19,8 +19,7 @@ Pod::Spec.new do |s|
   s.libraries = "sqlite3", "z"
 
   s.dependency "React"
-  s.dependency 'UMCCommon','7.2.8'
-  s.dependency 'UMDevice','1.2.0'
-  s.dependency 'UMAPM','1.2.1'
+  s.dependency 'UMCCommon','7.3.7'
+  s.dependency 'UMDevice'，'1.2.0'
 
 end

@@ -28,11 +28,11 @@ export async function getInfo() {
 }
 
 /**
- * onPageBegin
+ * onPageStart
  * @param pageName string
  */
-export function onPageBegin(pageName) {
-    RNReactNativeMumeng.onPageBegin(pageName);
+export function onPageStart(pageName) {
+    RNReactNativeMumeng.onPageStart(pageName);
 }
 
 /**
