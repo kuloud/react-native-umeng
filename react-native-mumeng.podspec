@@ -20,6 +20,6 @@ Pod::Spec.new do |s|
 
   s.dependency "React"
   s.dependency 'UMCCommon','7.3.7'
-  s.dependency 'UMDevice'，'1.2.0'
+  s.dependency 'UMDevice','1.2.0'
 
 end
