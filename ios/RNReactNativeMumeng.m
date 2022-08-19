@@ -110,7 +110,6 @@ RCT_EXPORT_METHOD(setPageCollectionMode:(NSString *)modeName)
   if (modeName == nil || [modeName isKindOfClass:[NSNull class]]) {
     return;
   }
-  [MobClick setPageCollectionMode:modeName];
 }
 
 @end
