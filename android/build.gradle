@@ -39,5 +39,5 @@ dependencies {
     implementation 'com.facebook.react:react-native:+'
     //友盟SDK
     implementation 'com.umeng.umsdk:common:9.5.1'
-    implementation 'com.umeng.umsdk:asms:1.6.4'
+    implementation 'com.umeng.umsdk:asms:1.6.3'
 }
